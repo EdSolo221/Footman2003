@@ -1,0 +1,61 @@
+﻿idequipas,Selecoes,Continente,Ranking
+BRA,Brasil,America,1
+ARG,Argentina,America,2
+FRA,Franca,Europa,3
+BEL,Belgica,Europa,4
+ING,Inglaterra,Europa,5
+PBA,Paises Baixos,Europa,6
+CRO,Croacia,Europa,7
+ITA,Italia,Europa,8
+POR,Portugal,Europa,9
+ESP,Espanha,Europa,10
+MAR,Marrocos,Africa,11
+SUI,Suica,Europa,12
+EUN,Estados Unidos,America,13
+ALE,Alemanha,Europa,14
+MEX,Mexico,America,15
+URU,Uruguai ,America,16
+COL,Colombia ,America,17
+DIN,Dinamarca,Europa,18
+SEM,Senegal,Africa,19
+JAP,Japao ,asia,20
+PER,Peru,America,21
+POL,Polonia ,Europa,22
+SUE,Suecia,Europa,23
+IRA,Irao,Africa,24
+REP,Republica da Coreia,asia,25
+UCR,Ucrania,Europa,26
+AUS,Australia,Oceania,27
+PGA,Pais de Gales,Europa,28
+SER,Servia,Europa,29
+TUN,Tunisia ,asia,30
+CHI,Chile,America,31
+CRI,Costa Rica,America,32
+CAM,Camaroes,Africa,33
+AUS,Austria,Europa,34
+NIG,Nigeria,Africa,35
+HUN,Hungria,Europa,36
+RUS,Russia,asia,37
+CHE,Chequia,Europa,38
+EGI,Egito,Africa,39
+ALG,Argelia,Africa,40
+QUE,Equador,America,41
+ESC,Escocia,Europa,42
+NOR,Noruega,Europa,43
+TUR,Turquia,Europa,44
+MAL,Mali,asia,45
+PAR,Paraguai,America,46
+CMA,Costa do Marfim ,Africa,47
+IRL,Republica da Irlanda,Europa,48
+ARS,Arabia Saudita ,asia,49
+BUR,Burquina Fasso ,asia,50
+GRE,Grecia ,Europa,51
+ROM,Romenia ,Europa,52
+CAN,Canada,America,53
+ESC,Esclovaquia,Europa,54
+VEL,Venezuela,America,55
+FIN,Finlandia ,Europa,56
+BOS,Bosnia e Herzegovina,Europa,57
+GAN,Gana,Africa,58
+INO,Irlanda do Norte,Europa,59
+CAT,Catar,asia,60

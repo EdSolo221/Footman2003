@@ -2,9 +2,9 @@ import csv
 import random
  
 
-#variável global diasMes : organização de todos os meses acabados no dia 30 e no dia 31
-global diasMes
-diasMes = {
+#variável global dias_mes : organização de todos os meses acabados no dia 30 e no dia 31
+global dias_mes
+dias_mes = {
     31 : [1,3,5,6,8,10,12],
     30 : [4,7,9,11]
 }
@@ -18,8 +18,8 @@ data = [0,0,0]
 global selecoes
 selecoes = []
 
-global numJogo
-numJogo = [0]
+global num_jogo
+num_jogo = [0]
 
 #Dicionario com contagem de selecoes por continente apuradas para o torneio
 global continentes
@@ -31,24 +31,24 @@ continentes = {
     "Africa" : 0,
     "Antártida" : 0
 }
-#golosMarcados : biblioteca que associa ao nome da equipa, os golos que eles marcaram
-global golosMarcados
-golosMarcados = {}
-#golosMarcados : biblioteca que associa ao nome da equipa, os golos que eles sofreram
-global golosSofridos
-golosSofridos = {}
+#golos_marcados : biblioteca que associa ao nome da equipa, os golos que eles marcaram
+global golos_marcados
+golos_marcados = {}
+#golos_sofridos : biblioteca que associa ao nome da equipa, os golos que eles sofreram
+global golos_sofridos
+golos_sofridos = {}
     
-#varíavel global equipasFase: Dicionario que guarda a informação de todas as equipas que passam cada fase do campeonato
-global equipasFase
-equipasFase = {
+#varíavel global equipas_fase: Dicionario que guarda a informação de todas as equipas que passam cada fase do campeonato
+global equipas_fase
+equipas_fase = {
     "oitavos" : [], 
     "quartos" : [], 
     "meias" : [], 
     "final" : []
 }
-#varíavel global jogosFase: Dicionario que guarda as informações de cada jogo em cada fase do campeonato
-global jogosFase
-jogosFase = {
+#varíavel global jogos_fase: Dicionario que guarda as informações de cada jogo em cada fase do campeonato
+global jogos_fase
+jogos_fase = {
     0 : [], 
     1 : [], 
     2 : [], 
@@ -64,38 +64,38 @@ def main():
             if (count == True):
                 selecoes.append(row)
             count = True
-    mainMenu()
+    main_menu()
 
-#addSelecao : função que adiciona uma seleção à lista de seleções
-def addSelecao():
+#add_selecao : função que adiciona uma seleção à lista de seleções
+def add_selecao():
     nome = input("Introduza o nome da seleção: ") 
     pais = input("Introduza o país da sua seleção: ")
     continente = input("Introduza o continente da seleção: ") 
     ranking =int(input("Introduza o ranking da seleção: "))
     selecoes.append([nome, pais, continente, ranking])
 
-#remSelecao : função que remove uma equipa da lista de seleções
-def remSelecao():
+#rem_selecao : função que remove uma equipa da lista de seleções
+def rem_selecao():
     selecaoRemovida = input("Qual equipa vai ser removida: ")
     for x in selecoes:
         if selecaoRemovida == x[0]:
             selecoes.remove(x)
             break
         
-#anoBissexto : função que testa se um ano é ou não bissexto.
-def anoBissexto(ano):
+#ano_bissexto : função que testa se um ano é ou não bissexto.
+def ano_bissexto(ano):
     if((ano % 400 == 0) or (ano % 100 != 0) and (ano% 4 == 0)):  
         return True
     else:
         return False
 
-#incrementarData : função que adiciona n dias (incremento) à data global
-def incrementarData(incremento):
+#incrementar_data : função que adiciona n dias (incremento) à data global
+def incrementar_data(incremento):
     data[0] += incremento
-    if((data[1] in diasMes[31] and data[0] > 31) or (data[1] in diasMes[30] and data[0] > 30)):
+    if((data[1] in dias_mes[31] and data[0] > 31) or (data[1] in dias_mes[30] and data[0] > 30)):
         data[0] = incremento
         data[1] += 1
-    elif((data[1] == 2 and anoBissexto(data[2]) == False and data[0] > 28) or (data[1] == 2 and anoBissexto(data[2]) == True and data[0] > 29)):
+    elif((data[1] == 2 and ano_bissexto(data[2]) == False and data[0] > 28) or (data[1] == 2 and ano_bissexto(data[2]) == True and data[0] > 29)):
         data[0] = incremento
         data[1] += 1
     if(data[1] > 12):
@@ -103,49 +103,49 @@ def incrementarData(incremento):
         data[2] += 1
     return data
     
-#randJogo: simula todos os jogos de uma certa fase, retornando a lista de todas as equipas vencedoras (e apuradas para a proxima fase).
-def randJogo(listaEquipa, fase):
+#rand_jogo: simula todos os jogos de uma certa fase, retornando a lista de todas as equipas vencedoras (e apuradas para a proxima fase).
+def rand_jogo(lista_equipa, fase):
     ret = []
-    flipflop = False
-    while(len(listaEquipa) != 0):
-        random.shuffle(listaEquipa)
-        if(flipflop == True):
+    flip_flop = False
+    while(len(lista_equipa) != 0):
+        random.shuffle(lista_equipa)
+        if(flip_flop == True):
             hora = "16:00"
-            flipflop = False
+            flip_flop = False
         else:
             hora = "14:00"
-            flipflop = True
-        tempoUtil = int(90 * ((random.randrange(60, 70)/100)))
-        casa = listaEquipa[0]
-        listaEquipa.pop(0)
-        fora = listaEquipa[0]
-        listaEquipa.pop(0)
-        resCasa = random.randint(0, 6)
-        resFora = random.randint(0, 6)
-        if(resCasa == resFora):
-            resFora += 1
-        if(resCasa > resFora):
-            equipaApurada = casa
+            flip_flop = True
+        tempo_util = int(90 * ((random.randrange(60, 70)/100)))
+        casa = lista_equipa[0]
+        lista_equipa.pop(0)
+        fora = lista_equipa[0]
+        lista_equipa.pop(0)
+        res_casa = random.randint(0, 6)
+        res_fora = random.randint(0, 6)
+        if(res_casa == res_fora):
+            res_fora += 1
+        if(res_casa > res_fora):
+            equipa_apurada = casa
         else:
-            equipaApurada = fora
-        ret.append(equipaApurada)
-        adicionarGolosMarcados(casa[0], resCasa)
-        adicionarGolosMarcados(fora[0], resFora)
-        adicionarGolosSofridos(casa[0], resFora)
-        adicionarGolosSofridos(fora[0], resCasa)
-        numJogo[0] = numJogo[0] + 1
-        jogosFase[fase].append([numJogo[0], casa[0], fora[0], data.copy(), hora, resCasa, resFora, tempoUtil, equipaApurada[0]])
-        if(flipflop == False):
-            incrementarData(1)
+            equipa_apurada = fora
+        ret.append(equipa_apurada)
+        adicionar_golos_marcados(casa[0], res_casa)
+        adicionar_golos_marcados(fora[0], res_fora)
+        adicionar_golos_sofridos(casa[0], res_fora)
+        adicionar_golos_sofridos(fora[0], res_casa)
+        num_jogo[0] = num_jogo[0] + 1
+        jogos_fase[fase].append([num_jogo[0], casa[0], fora[0], data.copy(), hora, res_casa, res_fora, tempo_util, equipa_apurada[0]])
+        if(flip_flop == False):
+            incrementar_data(1)
     return ret
 
-#distContinente : listar a distribuição de equipas por continente
-def distContinente():
+#dist_continente : listar a distribuição de equipas por continente
+def dist_continente():
     for continente, contagem in continentes.items():
         print(continente + ": " + str(contagem)) 
 
-#updateContinente : função que atualiza a distribuicao das equipas por continente 
-def updateContinente(selecoes):
+#update_continente : função que atualiza a distribuicao das equipas por continente 
+def update_continente(selecoes):
     for continente in continentes.keys():   #reset de cada vez
         continentes[continente] = 0
     for selecao in selecoes:
@@ -153,10 +153,10 @@ def updateContinente(selecoes):
             if (continente.lower() == selecao[2].lower()):
                 continentes[continente] += 1
 
-#checkMenuOptions : verifica se a opção introduzida é válida em cada menu
-def checkMenuOption(toCheck, max):
-    if(toCheck.isdigit()):
-        ret = int(toCheck)
+#check_menu_options : verifica se a opção introduzida é válida em cada menu
+def check_menu_option(to_check, max):
+    if(to_check.isdigit()):
+        ret = int(to_check)
         if(ret >= 0 and ret < max):
             return ret
     print("\n<==============================================>")
@@ -181,10 +181,10 @@ def apuramento():
     return ret
 
 
-#printCalendario : função que representa graficamente o calendario dos jogos de cada fase
-def printCalendario(fase, filtro):  #fase -> 0 a 3
+#print_calendario : função que representa graficamente o calendario dos jogos de cada fase
+def print_calendario(fase, filtro):  #fase -> 0 a 3
         fases = ["Oitavos de Final", "Quartos de Final", "Meias de Final", "Final"]
-        toPrint = [
+        to_print = [
             "<=================",
             " |  dia/mes/ano  |",
             " |  hora:        |",
@@ -193,50 +193,50 @@ def printCalendario(fase, filtro):  #fase -> 0 a 3
             "<=================",
         ]
         print("\n<" + fases[fase] + ">")
-        for jogo in jogosFase[fase]:
+        for jogo in jogos_fase[fase]:
             if(filtro == 0 or filtro == jogo[1] or filtro == jogo[2]):
-                toPrint[0] += "=============="
+                to_print[0] += "=============="
                 if(jogo[3][1] > 9 and jogo[3][0] > 9):
-                    toPrint[1] += "  "+str(jogo[3][0]) + "/" + str(jogo[3][1]) + "/" + str(jogo[3][2]) +" |"
+                    to_print[1] += "  "+str(jogo[3][0]) + "/" + str(jogo[3][1]) + "/" + str(jogo[3][2]) +" |"
                 elif((jogo[3][1] > 9 and jogo[3][0] < 10) or (jogo[3][1] < 10 and jogo[3][0] > 9)):
-                    toPrint[1] += "   "+str(jogo[3][0]) + "/" + str(jogo[3][1]) + "/" + str(jogo[3][2]) +" |"
+                    to_print[1] += "   "+str(jogo[3][0]) + "/" + str(jogo[3][1]) + "/" + str(jogo[3][2]) +" |"
                 else:
-                    toPrint[1] += "   "+str(jogo[3][0]) + "/" + str(jogo[3][1]) + "/" + str(jogo[3][2]) +"  |"
-                toPrint[2] += "     " + str(jogo[4])+ "   |"
-                toPrint[3]+= "     " + str(jogo[1]) + "     |"
-                toPrint[4]+= "     " + str(jogo[2]) + "     |"
-                toPrint[5] += "=============="
-        toPrint[0] += ">"
-        toPrint[5] += ">"  
-        if(len(toPrint[0]) != 18):
-            for line in toPrint:
+                    to_print[1] += "   "+str(jogo[3][0]) + "/" + str(jogo[3][1]) + "/" + str(jogo[3][2]) +"  |"
+                to_print[2] += "     " + str(jogo[4])+ "   |"
+                to_print[3]+= "     " + str(jogo[1]) + "     |"
+                to_print[4]+= "     " + str(jogo[2]) + "     |"
+                to_print[5] += "=============="
+        to_print[0] += ">"
+        to_print[5] += ">"  
+        if(len(to_print[0]) != 18):
+            for line in to_print:
                 print(line)
         else:
             print("\n!!Horário inexistente!!\n")\
 
-#validaData : função que verifica se uma certa data é válida
-def validaData(aValidar):
-    if(aValidar[0].isnumeric() and aValidar[1].isnumeric() and aValidar[2].isnumeric()):
-        aValidar[0] = int(aValidar[0])
-        aValidar[1] = int(aValidar[1])
-        aValidar[2] = int(aValidar[2])
+#valida_data : função que verifica se uma certa data é válida
+def valida_data(a_validar):
+    if(a_validar[0].isnumeric() and a_validar[1].isnumeric() and a_validar[2].isnumeric()):
+        a_validar[0] = int(a_validar[0])
+        a_validar[1] = int(a_validar[1])
+        a_validar[2] = int(a_validar[2])
     else:
         return False
-    if(aValidar[1] <= 12 and aValidar[0] > 0 and aValidar[1] > 0 and aValidar[2] >= 0):
-        if((aValidar[1] in diasMes[31] and aValidar[0] <= 31) or (aValidar[1] in diasMes[30] and aValidar[0] <= 30)):
+    if(a_validar[1] <= 12 and a_validar[0] > 0 and a_validar[1] > 0 and a_validar[2] >= 0):
+        if((a_validar[1] in dias_mes[31] and a_validar[0] <= 31) or (a_validar[1] in dias_mes[30] and a_validar[0] <= 30)):
             return True
-        elif((aValidar[1] == 2 and anoBissexto(aValidar[2]) == False and aValidar[0] <= 28) or (aValidar[1] == 2 and anoBissexto(aValidar[2]) == True and data[0] <= 29)):
+        elif((a_validar[1] == 2 and ano_bissexto(a_validar[2]) == False and a_validar[0] <= 28) or (a_validar[1] == 2 and ano_bissexto(a_validar[2]) == True and data[0] <= 29)):
             return True    
     return False
 
-#obterData : função que pede a data ao utilizador
-def obterData():
+#obter_data : função que pede a data ao utilizador
+def obter_data():
     check = True
     while(check != False):
         dia = input("Introduza um dia: ")
         mes = input("Introduza um mês: ")
         ano = input("Introduza um ano: ")
-        if(validaData([dia, mes, ano]) == True):
+        if(valida_data([dia, mes, ano]) == True):
             return [int(dia), int(mes), int(ano)]
         print("\n<====================================================>")
         print("!!Data invalida, por favor introduza uma data válida!!")
@@ -245,30 +245,30 @@ def obterData():
         if(option == "0"):
             return -1
 
-#resDia : função que retorna os resultados de uma equipa num certo dia.           
-def resDia(dia):       
+#res_dia : função que retorna os resultados de uma equipa num certo dia.           
+def res_dia(dia):       
     ret = []
     if(dia == -1):
         return ret
-    for fase in jogosFase.keys():
-        for jogo in jogosFase[fase]:
+    for fase in jogos_fase.keys():
+        for jogo in jogos_fase[fase]:
             if(jogo[3][0] == dia[0] and jogo[3][1] == dia[1] and jogo[3][2] == dia[2]):
                 ret.append(jogo)
     return ret               
 
-#validaSelecao : função que verifica se uma selecao existe e é válida.
-def validaSelecao(selecao):
-    for fase in jogosFase.keys():
-        for jogo in jogosFase[fase]:
+#valida_selecao : função que verifica se uma selecao existe e é válida.
+def valida_selecao(selecao):
+    for fase in jogos_fase.keys():
+        for jogo in jogos_fase[fase]:
             if(jogo[1] == selecao or jogo[2] == selecao):
                 return True
 
-#obterSeleção: função que pede ao utilizador o nome de uma certa seleção.
-def obterSeleção():
+#obter_seleção: função que pede ao utilizador o nome de uma certa seleção.
+def obter_seleção():
     check = True
     while(check != False):
         selecao = input("Introduza o nome de uma selecão: ")
-        if(validaSelecao(selecao) == True):
+        if(valida_selecao(selecao) == True):
             return selecao
         print("\n<=========================================================>")
         print("!!Seleção invalida, por favor introduza uma seleção válida!!")
@@ -277,65 +277,65 @@ def obterSeleção():
         if(option == "0"):
             return -1
 
-#limparCampeonato : função que limpa todos os dados que foram acumulados  
-def limparCampeonato():
-    numJogo[0] = 0
-    for fase in jogosFase.keys():
-        jogosFase[fase] = []
-    for fase in equipasFase.keys():
-        equipasFase[fase] = []
+#limpar_campeonato : função que limpa todos os dados que foram acumulados  
+def limpar_campeonato():
+    num_jogo[0] = 0
+    for fase in jogos_fase.keys():
+        jogos_fase[fase] = []
+    for fase in equipas_fase.keys():
+        equipas_fase[fase] = []
     for continente in continentes.keys():
         continentes[continente] = 0
-    golosMarcados.clear()
-    golosSofridos.clear()
+    golos_marcados.clear()
+    golos_sofridos.clear()
 
-#maisUtil : função que retorna a lista com o jogo que tem o tempo mais util.
-def maisUtil(fase):
+#mais_util : função que retorna a lista com o jogo que tem o tempo mais util.
+def mais_util(fase):
     max = 0
-    for jogo in jogosFase[fase]:
+    for jogo in jogos_fase[fase]:
         if(jogo[7] > max):
             max = jogo[7]
             ret = jogo.copy()
     return ret
 
-#adicionarGolosSofridos: função que adiciona os dados ao dicionario de golosSofridos
-def adicionarGolosSofridos(nome, golos):
-    for equipa in golosSofridos.keys():
+#adicionar_golos_sofridos: função que adiciona os dados ao dicionario de golos_sofridos
+def adicionar_golos_sofridos(nome, golos):
+    for equipa in golos_sofridos.keys():
         if(equipa == nome):
-            golosSofridos[equipa] = golosSofridos[equipa] + golos
+            golos_sofridos[equipa] = golos_sofridos[equipa] + golos
 
-#adicionarGolosSofridos: função que adiciona os dados ao dicionario de golosMarcados
-def adicionarGolosMarcados(nome, golos):
-    for equipa in golosMarcados.keys():
+#adicionar_golos_sofridos: função que adiciona os dados ao dicionario de golos_marcados
+def adicionar_golos_marcados(nome, golos):
+    for equipa in golos_marcados.keys():
         if(equipa == nome):
-            golosMarcados[equipa] = golosMarcados[equipa] + golos
+            golos_marcados[equipa] = golos_marcados[equipa] + golos
 
-#printDef : função retorna a lista da equipa que tem melhor defesa.
-def printDef():
+#print_def : função retorna a lista da equipa que tem melhor defesa.
+def print_def():
     min = 24
     ret = 0
-    for golo in golosSofridos.values():
+    for golo in golos_sofridos.values():
         if(golo < min):
             min = golo
-    for equipa in golosSofridos.keys():
-        if(golosSofridos[equipa] == min):
+    for equipa in golos_sofridos.keys():
+        if(golos_sofridos[equipa] == min):
             ret = equipa
     return ret
             
-#printAtk : função retorna a lista da equipa que tem melhor ataque.
-def printAtk():
+#print_atk : função retorna a lista da equipa que tem melhor ataque.
+def print_atk():
     max = 0
     ret = -1
-    for golos in golosMarcados.values():
+    for golos in golos_marcados.values():
         if(golos > max):
             max = golos
-    for equipa in golosMarcados.keys():
-        if(golosMarcados[equipa] == max):
+    for equipa in golos_marcados.keys():
+        if(golos_marcados[equipa] == max):
             ret = equipa
     return ret
 
- #menuGerirEquipa : representação grafica do menu que gere as equipas no terminal.
-def menuGerirEquipa():
+ #menu_gerir_equipa : representação grafica do menu que gere as equipas no terminal.
+def menu_gerir_equipa():
     check = True
     while(check != False):
         print("<===============================>")
@@ -348,26 +348,26 @@ def menuGerirEquipa():
         print("|                               |")
         print("<===============================>")
         option = input(">?")
-        option = checkMenuOption(option ,3)
+        option = check_menu_option(option ,3)
         if(option == 0):
             check = False
         elif(option == 1):
-            addSelecao()
+            add_selecao()
         elif(option == 2):
-            remSelecao()
+            rem_selecao()
 
-#menuSimulacoes : representação grafica do menu de simulações. Também utilizada para chamar as funções apresentadas.
-def menuSimulacoes(equipas, fase):
+#menu_simulacoes : representação grafica do menu de simulações. Também utilizada para chamar as funções apresentadas.
+def menu_simulacoes(equipas, fase):
     if(len(equipas) == 0):
-        limparCampeonato()
+        limpar_campeonato()
         return []
     elif(fase == 0):
-        updateContinente(equipas)
+        update_continente(equipas)
         for x in equipas:
-            golosMarcados[x[0]] = 0
-            golosSofridos[x[0]] = 0
+            golos_marcados[x[0]] = 0
+            golos_sofridos[x[0]] = 0
     fases = ["<       Oitavos de Final        >", "<       Quartos de Final        >", "<        Meias de Final         >", "<            Final              >"]
-    vencedores = randJogo(equipas, fase)
+    vencedores = rand_jogo(equipas, fase)
     check = True
     while(check != False):
         print("<===============================>")
@@ -387,27 +387,27 @@ def menuSimulacoes(equipas, fase):
         print("<===============================>")
         option = input(">?")
         if(fase == 3):
-            option = checkMenuOption(option ,3)
+            option = check_menu_option(option ,3)
         else:
-            option = checkMenuOption(option ,5)
+            option = check_menu_option(option ,5)
         if(option == 0):
             return []
         elif(option == 1):
-            printCalendario(fase,0)
+            print_calendario(fase,0)
         elif(option == 2):
             for equipa in vencedores:
                 print(equipa)
         elif(option == 3):
-            print(maisUtil(fase))
+            print(mais_util(fase))
         elif(option == 4):
-            incrementarData(2)
+            incrementar_data(2)
             return vencedores
         if(option != 0):
             input("(prima qualquer tecla para continuar)")
 
-#menuEstatisticasCampeonato : representação gráfica do menu que apresenta as  Estatisticas do Campeonato.    
-def menuEstatisticasCampeonato():
-    if(len(jogosFase[0]) == 0 ):
+#menu_estatisticas_campeonato : representação gráfica do menu que apresenta as  Estatisticas do Campeonato.    
+def menu_estatisticas_campeonato():
+    if(len(jogos_fase[0]) == 0 ):
         print("\n<========================================================================>")
         print("!!Por favor simule na totalidade um campeonato antes de aceder este menu!!")
         print("<========================================================================>\n")
@@ -430,38 +430,38 @@ def menuEstatisticasCampeonato():
         print("|                               |")
         print("<===============================>")
         option = input(">?")
-        option = checkMenuOption(option ,9)
+        option = check_menu_option(option ,9)
         if(option == 0):
             check = False
         elif(option == 1):
             for x in range(4):
-                printCalendario(x,0)
+                print_calendario(x,0)
         elif(option == 2):
-            selec =obterSeleção()
+            selec =obter_seleção()
             for x in range(4):
-                printCalendario(x,selec)
+                print_calendario(x,selec)
         elif(option == 3):
-            print(resDia(obterData()))        
+            print(res_dia(obter_data()))        
         elif(option == 4):
-            distContinente()
+            dist_continente()
         elif(option == 5):
-            for participante in golosMarcados.keys():
+            for participante in golos_marcados.keys():
                 print(participante)
         elif(option == 6):
-            maisUteis = []
+            mais_uteis = []
             for x in range(4):
-                maisUteis.append(maisUtil(x))
-            sorted(maisUteis, key = lambda x : x[7], reverse=True)
-            print(maisUteis[0])
+                mais_uteis.append(mais_util(x))
+            sorted(mais_uteis, key = lambda x : x[7], reverse=True)
+            print(mais_uteis[0])
         elif(option == 7):
-            print(printDef())
+            print(print_def())
         elif(option == 8):
-            print(printAtk())
+            print(print_atk())
         if(option != 0):
             input("(prima qualquer tecla para continuar)")
 
-#mainMenu : representação gráfica do menu principal.    
-def mainMenu():
+#main_menu : representação gráfica do menu principal.    
+def main_menu():
     check = True
     while(check != False):
         print("<===============================>")
@@ -475,20 +475,20 @@ def mainMenu():
         print("|                               |")
         print("<===============================>")
         option = input(">?")
-        option = checkMenuOption(option ,4)
+        option = check_menu_option(option ,4)
         if(option == 0):
             check = False
         elif(option == 1):
-            menuGerirEquipa()
+            menu_gerir_equipa()
         elif(option == 2):
-            limparCampeonato()
-            dataTemp = obterData()
+            limpar_campeonato()
+            dataTemp = obter_data()
             data[0] = dataTemp[0]
             data[1] = dataTemp[1]
             data[2] = dataTemp[2]
-            menuSimulacoes(menuSimulacoes(menuSimulacoes(menuSimulacoes(apuramento(), 0), 1), 2),3)
+            menu_simulacoes(menu_simulacoes(menu_simulacoes(menu_simulacoes(apuramento(), 0), 1), 2),3)
         elif(option == 3):
-            menuEstatisticasCampeonato()
+            menu_estatisticas_campeonato()
 
 #execução da main.
 if __name__ == "__main__":
